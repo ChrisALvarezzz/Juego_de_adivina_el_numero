@@ -1,0 +1,62 @@
+import kotlin.random.Random;
+
+fun main() {
+
+    println("Se va a generar un numero aleatorio entre 0 y 100, tu objetivo es adivinar cual es dicho numero")
+
+    adivinar_numero_aleatorio();
+}
+
+fun adivinar_numero_aleatorio(){
+    
+    var numero_aleatorio = Random.nextInt(0,100);
+    println(numero_aleatorio)
+    var numero_de_intentos = 0;
+    
+    while(true){
+        
+        var respuesta_de_usuario = validar_numero_de_entrada();
+
+        if(respuesta_de_usuario < numero_aleatorio){
+            println("Su respuesta es menor al numero acertado, intente otra vez \n");
+            numero_de_intentos++;
+            continue
+        }
+        else if (respuesta_de_usuario > numero_aleatorio){
+            println("Su respuesta es mayor al numero acertado, intente otra vez \n");
+            numero_de_intentos++;
+            continue
+        }
+        else{
+            println("Felicidades, ha logrado adivinar el numero correcto en ${numero_de_intentos} intentos")
+            break;
+        }
+    }
+    
+}
+
+fun validar_numero_de_entrada(): Int{
+    var respuesta: String? = null;
+    var respuesta_valida: Int? = null;
+    
+    print("Porfavor introduce un numero entre 0 y 100 sin punto decimal: ");
+    
+    while(true){
+        respuesta = readlnOrNull();
+    
+        if(respuesta == null){
+            println("No se que intentaste hacer, por favor vuelve a intentar");
+            continue
+        }
+        
+        respuesta_valida = respuesta!!.toIntOrNull();
+        
+        if(respuesta_valida == null || respuesta_valida < 0 || respuesta_valida > 100){
+            println("Lo que introdujiste no es una respuesta valida, por favor intente con los caracteres 1, 2, 3, (...) y que sea dentro del rango 0-100")
+        }
+        else{
+            return respuesta_valida!!;
+        }
+    }
+    return 0;    
+}
